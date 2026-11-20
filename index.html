@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List Life Dashboard</title>
+  
+  <!-- Inline script to prevent theme flash -->
+  <script>
+    (function() {
+      const theme = localStorage.getItem('tld_theme');
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <link rel="stylesheet" href="css/style.css">
+  <script defer src="js/app.js"></script>
+</head>
+<body>
+  <!-- LocalStorage unavailability warning banner -->
+  <aside id="storage-warning" role="status" hidden>
+    ⚠️ Local storage is unavailable. Data will not be saved this session.
+  </aside>
+
+  <main class="container">
+    <!-- Theme Toggle -->
+    <aside class="theme-toggle-container" aria-label="Display settings">
+      <button id="theme-toggle" aria-label="Switch to dark theme">
+        <span class="theme-icon">🌙</span>
+      </button>
+    </aside>
+
+    <!-- Greeting Section -->
+    <section id="greeting">
+      <header class="greeting-content">
+        <time id="greeting-time" class="greeting-time">00:00</time>
+        <time id="greeting-date" class="greeting-date">Loading...</time>
+        <h1 id="greeting-text" class="greeting-text">Hello</h1>
+      </header>
+      <section class="greeting-name-input" aria-label="Personalize greeting">
+        <input 
+          type="text" 
+          id="username-input" 
+          maxlength="50" 
+          placeholder="Enter your name"
+          aria-label="Your name"
+        >
+        <button id="save-name-btn" aria-label="Save name">Save</button>
+      </section>
+    </section>
+
+    <!-- Focus Timer Section -->
+    <section id="focus-timer">
+      <h2>Focus Timer</h2>
+      <output id="timer-display" class="timer-display" aria-live="off">25:00</output>
+      <footer class="timer-controls">
+        <button id="timer-start" aria-label="Start timer">Start</button>
+        <button id="timer-stop" aria-label="Stop timer" disabled>Stop</button>
+        <button id="timer-reset" aria-label="Reset timer">Reset</button>
+      </footer>
+      
+      <!-- Timer notification banner -->
+      <aside id="timer-notification" class="timer-notification" role="status" hidden>
+        <span>⏰ Focus session complete! Take a break.</span>
+        <button id="timer-notification-dismiss" aria-label="Dismiss notification">Dismiss</button>
+      </aside>
+    </section>
+
+    <!-- Task Manager Section -->
+    <section id="tasks">
+      <h2>Tasks</h2>
+      
+      <!-- Add Task Form -->
+      <section class="task-input-container" aria-label="Add a task">
+        <input 
+          type="text" 
+          id="task-input" 
+          maxlength="200" 
+          placeholder="Add a new task..."
+          aria-label="New task description"
+          aria-describedby="task-error"
+        >
+        <button id="add-task-btn" aria-label="Add task">Add</button>
+      </section>
+      <span id="task-error" class="error-message" role="alert" aria-live="polite"></span>
+
+      <!-- Sort Control -->
+      <section class="task-sort-container" aria-label="Task sorting">
+        <label for="sort-select">Sort by:</label>
+        <select id="sort-select" aria-label="Sort tasks by">
+          <option value="creation">Date added</option>
+          <option value="completed-last">Incomplete first</option>
+          <option value="alpha">Alphabetical</option>
+        </select>
+      </section>
+
+      <!-- Task List -->
+      <ul id="task-list" class="task-list"></ul>
+    </section>
+
+    <!-- Quick Links Section -->
+    <section id="quick-links">
+      <h2>Quick Links</h2>
+      
+      <!-- Add Quick Link Form -->
+      <section class="ql-input-container" aria-label="Add a quick link">
+        <fieldset class="ql-input-group" aria-label="Quick link details">
+          <input 
+            type="text" 
+            id="ql-label" 
+            maxlength="30" 
+            placeholder="Label"
+            aria-label="Link label"
+            aria-describedby="ql-label-error"
+          >
+          <span id="ql-label-error" class="error-message" role="alert" aria-live="polite"></span>
+        </fieldset>
+        <fieldset class="ql-input-group" aria-label="Quick link URL">
+          <input 
+            type="text" 
+            id="ql-url" 
+            maxlength="2048" 
+            placeholder="https://example.com"
+            aria-label="Link URL"
+            aria-describedby="ql-url-error"
+          >
+          <span id="ql-url-error" class="error-message" role="alert" aria-live="polite"></span>
+        </fieldset>
+        <button id="add-ql-btn" aria-label="Add quick link">Add Link</button>
+      </section>
+
+      <!-- Quick Links List -->
+      <ul id="ql-list" class="ql-list"></ul>
+    </section>
+  </main>
+</body>
+</html>
